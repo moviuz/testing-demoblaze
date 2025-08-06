@@ -9,10 +9,10 @@ test('Product Purchase Flow', async ({ page }) => {
   await page.getByRole('link', { name: 'Monitors' }).click();
 
   //select product cant improve with locator
-  await page.getByText('ASUS Full HD$230ASUS VS247H-P').click();
-  await page.getByRole('heading', { name: 'ASUS Full HD' }).click();
-  await page.getByRole('heading', { name: '$230 *includes tax' }).click();
 
+  await page.locator('text=ASUS Full HD').click();
+ //save the product name for later validation
+  const monitorName = await page.locator('text=ASUS Full HD').innerHTML();
   //add to cart and handle dialog 
   page.once('dialog', dialog => {
     console.log(`Dialog message: ${dialog.message()}`);
@@ -26,6 +26,12 @@ test('Product Purchase Flow', async ({ page }) => {
 
   //select product in cart and proceed to order
   await page.getByRole('cell', { name: 'ASUS Full HD' }).click();
+  
+  //save the product name for later validation
+  //const monitorName = await page.getByRole('cell', { name: 'ASUS Full HD' }).innerHTML();
+  const actualMonitorName = await page.locator('text=ASUS Full HD').innerHTML();
+  //console.log(`PExpect test: ${monitorName} product in orderList ${actualMonitorName}`  );
+  expect(actualMonitorName).toContain(monitorName);
 
   //click place order button
   await page.getByRole('button', { name: 'Place Order' }).click();
