@@ -1,6 +1,8 @@
 
 import { test, expect } from '@playwright/test';
 
+//this page can improve implementing  POM, for now is a simple test 
+
 test('Product Purchase Flow', async ({ page }) => {
   //go homepage 
   await page.goto('https://demoblaze.com/');
