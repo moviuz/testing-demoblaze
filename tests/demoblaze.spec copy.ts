@@ -1,8 +1,13 @@
 
 import { test, expect } from '@playwright/test';
 
-test('demoblaze', async ({ page }) => {
+test('Product Purchase Flow', async ({ page }) => {
+  
+  
   await page.goto('https://demoblaze.com/');
+  
+  
+  
   await page.getByRole('link', { name: 'Monitors' }).click();
   //await page.locator('xpath=////*[@id="itemc"][3]').click();
   await page.getByText('ASUS Full HD$230ASUS VS247H-P').click();
@@ -16,13 +21,10 @@ test('demoblaze', async ({ page }) => {
   await page.getByRole('link', { name: 'Add to cart' }).click();
   await page.getByRole('link', { name: 'Cart', exact: true }).click();
   await page.locator('#page-wrapper').click();
-  await page.getByRole('cell', { name: '230' }).click();
   await page.getByRole('cell', { name: 'ASUS Full HD' }).click();
-  await page.getByRole('heading', { name: '230' }).click();
   await page.getByRole('button', { name: 'Place Order' }).click();
   await page.getByRole('textbox', { name: 'Total: 230 Name:' }).click();
   await page.getByRole('textbox', { name: 'Total: 230 Name:' }).fill('Fernando');
-  await page.getByRole('textbox', { name: 'Total: 230 Name:' }).press('Tab');
   await page.getByRole('textbox', { name: 'Country:' }).fill('Orozco');
   await page.getByRole('textbox', { name: 'City:' }).fill('M');
   await page.getByRole('textbox', { name: 'Country:' }).click();
@@ -37,7 +39,7 @@ test('demoblaze', async ({ page }) => {
   await page.getByRole('textbox', { name: 'Year:' }).fill('26');
   await page.locator('div').filter({ hasText: 'Total: 230 Name: Country:' }).nth(3).click();
   await page.getByRole('button', { name: 'Purchase' }).click();
-  await page.getByRole('heading', { name: 'Thank you for your purchase!' }).click();
+  await expect(page.getByRole('heading', { name: 'Thank you for your purchase!' })).toBeVisible();
   await page.getByRole('button', { name: 'OK' }).click();
 });
 
