@@ -25,10 +25,9 @@ test('Product Purchase Flow', async ({ page }) => {
   await page.locator('#page-wrapper').click();
 
   //select product in cart and proceed to order
-  await page.getByRole('cell', { name: 'ASUS Full HD' }).click();
   
   //save the product name for later validation
-  //const monitorName = await page.getByRole('cell', { name: 'ASUS Full HD' }).innerHTML();
+
   const actualMonitorName = await page.locator('text=ASUS Full HD').innerHTML();
   //console.log(`PExpect test: ${monitorName} product in orderList ${actualMonitorName}`  );
   expect(actualMonitorName).toContain(monitorName);
